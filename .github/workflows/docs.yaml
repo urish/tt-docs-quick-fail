@@ -17,11 +17,10 @@ jobs:
         env:
           YAML_LINT_CFG: "{extends: relaxed, rules: {line-length: disable, trailing-spaces: disable, colons: disable}}"
         run: |
-          set -o pipefail
-          if ! yamllint -d "$YAML_LINT_CFG" info.yaml 2>&1 | tee yamllint.log; then
+          if ! yamllint -d "$YAML_LINT_CFG" info.yaml; then
             echo "# info.yaml errors" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            cat yamllint.log >> $GITHUB_STEP_SUMMARY
+            yamllint -d "$YAML_LINT_CFG" -f standard info.yaml 2>&1 | tee -a $GITHUB_STEP_SUMMARY
             echo "Error: info.yaml syntax error!"
             exit 1
           fi
