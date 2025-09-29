@@ -17,7 +17,7 @@ jobs:
         env:
           YAML_LINT_CFG: "{extends: relaxed, rules: {line-length: {max: 120}}, trailing-spaces: ignore, colons: ignore}"
         run: |
-          yamllint -d $YAML_LINT_CFG info.yaml | tee yamllint.log
+          yamllint -d "$YAML_LINT_CFG" info.yaml | tee yamllint.log
           if [ $? -ne 0 ]; then
             echo "# info.yaml errors" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
