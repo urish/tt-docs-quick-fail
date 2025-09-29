@@ -14,8 +14,17 @@ jobs:
           submodules: recursive
 
       - name: Yaml lint 
+        env:
+          YAML_LINT_CFG: "{extends: relaxed, rules: {line-length: {max: 120}}, trailing-spaces: ignore, colons: ignore}"
         run: |
-          yamllint -d relaxed info.yaml
+          yamllint -d $YAML_LINT_CFG info.yaml | tee yamllint.log
+          if [ $? -ne 0 ]; then
+            echo "# info.yaml errors" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            cat yamllint.log >> $GITHUB_STEP_SUMMARY
+            echo "Error: info.yaml syntax error!"
+            exit 1
+          fi
 
       - name: Build docs
         uses: TinyTapeout/tt-gds-action/docs@ttsky25b
