@@ -13,5 +13,13 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Yaml LINT
+        run: |
+          yamllint info.yaml
+
+      - name: Yaml lint bad YAML
+        run: |
+          yamllint LICENSE
+
       - name: Build docs
         uses: TinyTapeout/tt-gds-action/docs@ttsky25b
