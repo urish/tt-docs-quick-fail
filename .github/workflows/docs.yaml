@@ -20,9 +20,9 @@ jobs:
           if ! yamllint -d "$YAML_LINT_CFG" info.yaml; then
             echo "# info.yaml errors" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
-            echo "```" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
             yamllint -d "$YAML_LINT_CFG" -f standard info.yaml 2>&1 | tee -a $GITHUB_STEP_SUMMARY
-            echo "```" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
             echo "Error: info.yaml syntax error!"
             exit 1
           fi
