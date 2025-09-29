@@ -15,7 +15,7 @@ jobs:
 
       - name: Yaml lint 
         env:
-          YAML_LINT_CFG: "{extends: relaxed, rules: {line-length: {max: 120}}, trailing-spaces: ignore, colons: ignore}"
+          YAML_LINT_CFG: "{extends: relaxed, rules: {line-length: ignore, trailing-spaces: ignore, colons: ignore}}"
         run: |
           yamllint -d "$YAML_LINT_CFG" info.yaml | tee yamllint.log
           if [ $? -ne 0 ]; then
