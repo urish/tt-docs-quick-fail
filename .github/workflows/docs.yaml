@@ -18,8 +18,7 @@ jobs:
           YAML_LINT_CFG: "{extends: relaxed, rules: {line-length: disable, trailing-spaces: disable, colons: disable}}"
         run: |
           set -o pipefail
-          yamllint -d "$YAML_LINT_CFG" info.yaml 2>&1 | tee yamllint.log
-          if [ $? -ne 0 ]; then
+          if ! yamllint -d "$YAML_LINT_CFG" info.yaml 2>&1 | tee yamllint.log; then
             echo "# info.yaml errors" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             cat yamllint.log >> $GITHUB_STEP_SUMMARY
